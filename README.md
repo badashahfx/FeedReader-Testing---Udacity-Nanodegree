@@ -5,7 +5,7 @@
  - Download this zip file from Github
  - Unzip the file
  - Open index.html
- - Scroll all the way to the bottom of the page to see the Jasime test results.
+ - Scroll all the way to the bottom of the page to see the Jasmine test results.
 
 ## Tester
 Tester file location:
