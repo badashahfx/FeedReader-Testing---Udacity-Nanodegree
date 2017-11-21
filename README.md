@@ -8,7 +8,7 @@
  - Scroll all the way to the bottom of the page to see the Jasime test results.
 
 ## Tester
-Jasmine javaScript of the tester is location
+Tester file location:
 > \jasmine\spec\feedreader.js
 
 ## Project Overview
