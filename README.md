@@ -4,7 +4,7 @@
 
  - Download this zip file from Github
  - Unzip the file
- - Ppen index.html
+ - Open index.html
  - Scroll all the way to the bottom of the page to see the Jasime test results.
 
 ## Tester
