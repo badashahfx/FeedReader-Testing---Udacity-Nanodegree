@@ -26,75 +26,75 @@ $(function() {
       });
 
 
-      /* TODO: Write a test that loops through each feed
-       * in the allFeeds object and ensures it has a URL defined
-       * and that the URL is not empty.
-       */
+      
+
+    /* TODO: Write a test that loops through each feed
+     * in the allFeeds object and ensures it has a URL defined
+     * and that the URL is not empty.
+     */
       it('feed URLs are defined and are not empty', function() {
-         for (var i = 0, len = allFeeds.length; i < len; i++) {
-            var url = allFeeds[i].url;
-            expect(url).toBeDefined(); // Defined Url
-            expect(url).not.toBe(''); // Not to be Empty
+
+         for (var i = 0; i < allFeeds.length; i++) {
+            expect(allFeeds[i].url).toBeDefined(); // Defined Url
+            expect(allFeeds[i].url).not.toBe(''); // Not to be Empty
          }
       });
 
-      /* TODO: Write a test that loops through each feed
-       * in the allFeeds object and ensures it has a name defined
-       * and that the name is not empty.
-       */
+
+   /* TODO: Write a test that loops through each feed
+    * in the allFeeds object and ensures it has a name defined
+    * and that the name is not empty.
+    */
       it('feed Names are defined and are not empty', function() {
-         for (var i = 0, len = allFeeds.length; i < len; i++) {
-            var name = allFeeds[i].name;
-            expect(name).toBeDefined(); // Defined Name
-            expect(name).not.toBe(''); // Not to be Empty
+            
+         for (var i = 0; i < allFeeds.length; i++) {
+            expect(allFeeds[i].name).toBeDefined(); // Defined Name
+            expect(allFeeds[i].name).not.toBe(''); // Not to be Empty
          }
       });
    });
 
 
+   
    /* TODO: Write a new test suite named "The menu" */
+   /* TODO: Write a test that ensures the menu element is
+    * hidden by default. You'll have to analyze the HTML and
+    * the CSS to determine how we're performing the
+    * hiding/showing of the menu element.
+    */
 
    describe('The menu', function() {
 
-      /* TODO: Write a test that ensures the menu element is
-       * hidden by default. You'll have to analyze the HTML and
-       * the CSS to determine how we're performing the
-       * hiding/showing of the menu element.
-       */
-
-      it('side menus is hidden initially', function() { //.menu-hidden class used from app.js
-         expect($('.menu-hidden').is(':visible')).toBe(true); // to hide the side menu by default
+      it('side menus is hidden initially', function() {                  //.menu-hidden class used from app.js
+         expect($('body').hasClass('menu-hidden')).toBeTruthy();  // to hide the side menu by default
       });
 
-      /* TODO: Write a test that ensures the menu changes
-       * visibility when the menu icon is clicked. This test
-       * should have two expectations: does the menu display when
-       * clicked and does it hide when clicked again.
-       */
+    /* TODO: Write a test that ensures the menu changes
+     * visibility when the menu icon is clicked. This test
+     * should have two expectations: does the menu display when
+     * clicked and does it hide when clicked again.
+     */
 
-      it('menu toggles when burger icon is clicked', function() {
-         $('a.menu-icon-link').trigger('click'); //.menu-icon-link class used from app.js
-         expect($('.menu-hidden').is(':visible')).toBe(false); // to enable menu toggle funtion using the burger icon
-      });
-
-      //to untoggle the side menu when open
-
-      it('menu untoggles when burger icon is clicked again', function() {
-         $('a.menu-icon-link').trigger('click'); //.menu-icon-link class used from app.js again
-         expect($('.menu-hidden').is(':visible')).toBe(true); // to untoggle side menu.
+      it('menu visibility changes when burger icon is clicked', function() {
+         $('.menu-icon-link').trigger('click'); 						   //.menu-icon-link class used from app.js
+         expect($('body').hasClass('menu-hidden')).toBeFalsy();    // to enable menu toggle funtion using the burger icon
+         $('.menu-icon-link').trigger('click'); 						 //Click again to change state
+         expect($('body').hasClass('menu-hidden')).toBeTruthy(); // Hides it when clicked again
       });
    });
 
-   /* TODO: Write a new test suite named "Initial Entries" */
+   
+
+
+   /* TODO: Write a new test suite named "Initial Entries"
+   /* TODO: Write a test that ensures when the loadFeed
+    * function is called and completes its work, there is at least
+    * a single .entry element within the .feed container.
+    * Remember, loadFeed() is asynchronous so this test will require
+    * the use of Jasmine's beforeEach and asynchronous done() function.
+    */
 
    describe('Initial Entries', function() {
-
-      /* TODO: Write a test that ensures when the loadFeed
-       * function is called and completes its work, there is at least
-       * a single .entry element within the .feed container.
-       * Remember, loadFeed() is asynchronous so this test will require
-       * the use of Jasmine's beforeEach and asynchronous done() function.
-       */
 
       beforeEach(function(done) {
          loadFeed(1, done);
@@ -104,31 +104,40 @@ $(function() {
          expect($('.feed .entry').length).toBeGreaterThan(0);
       });
    });
-   /* TODO: Write a new test suite named "New Feed Selection" */
+   
+
+
+
+   /* TODO: Write a new test suite named "New Feed Selection"
+   /* TODO: Write a test that ensures when a new feed is loaded
+    * by the loadFeed function that the content actually changes.
+    * Remember, loadFeed() is asynchronous.
+    */
 
    describe('New Feed Selection', function() {
-      /* TODO: Write a test that ensures when a new feed is loaded
-       * by the loadFeed function that the content actually changes.
-       * Remember, loadFeed() is asynchronous.
-       */
-      var CurrentFeedLoad;
+
+      var InitialFeedLoad;
       var FeedReload;
 
       beforeEach(function(done) {
-
-         loadFeed(0, function() { // loading the current feed
-            CurrentFeedLoad = $('.feed').find('h2')[0].innerText;
+         loadFeed(0, function() {                           // loading the initial feed
+            InitialFeedLoad = $('.header-title').text();  
             done();
          });
       });
 
       it('content changes when new feed is loaded', function(done) {
-         loadFeed(1, function() { // reloading to get the new feed
-            FeedReload = $('.feed').find('h2')[0].innerText;
-            expect(CurrentFeedLoad).not.toEqual(FeedReload);
+         loadFeed(1, function() {                         // reloading to get the new feed and making 
+            FeedReload = $('.header-title').text();       // sure the title of the feed is different.
+            expect(InitialFeedLoad).not.toBe(FeedReload); // Running comparison test to check they are different
             done();
          });
       });
    });
    
 }());
+
+
+/* Credits:
+ * https://jasmine.github.io/2.0/introduction.html
+ */
