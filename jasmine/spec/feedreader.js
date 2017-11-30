@@ -121,7 +121,7 @@ $(function() {
 
       beforeEach(function(done) {
          loadFeed(0, function() {                           // loading the initial feed
-            InitialFeedLoad = $('.header-title').text();  
+            InitialFeedLoad = $('.feed').text();  
             done();
          });
       });
