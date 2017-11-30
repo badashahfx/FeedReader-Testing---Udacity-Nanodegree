@@ -121,14 +121,14 @@ $(function() {
 
       beforeEach(function(done) {
          loadFeed(0, function() {                           // loading the initial feed
-            InitialFeedLoad = $('.feed').text();  
+            InitialFeedLoad = $('.feed').html();  
             done();
          });
       });
 
       it('content changes when new feed is loaded', function(done) {
          loadFeed(1, function() {                         // reloading to get the new feed and making 
-            FeedReload = $('.header-title').text();       // sure the title of the feed is different.
+            FeedReload = $('.feed').html();       // sure the title of the feed is different.
             expect(InitialFeedLoad).not.toBe(FeedReload); // Running comparison test to check they are different
             done();
          });
